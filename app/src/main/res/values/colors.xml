@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== Dark-first palette (default) ===== -->
+    <color name="background">#0A0A0F</color>
+    <color name="surface">#14141C</color>
+    <color name="surface_variant">#1E1E2A</color>
+    <color name="primary">#7C6AF7</color>
+    <color name="secondary">#48C9B0</color>
+    <color name="error">#FF6B6B</color>
+    <color name="on_surface">#E8E8F0</color>
+    <color name="muted">#6B6B80</color>
+
+    <color name="mode_theory">#5B8AF0</color>
+    <color name="mode_practice">#F0955B</color>
+    <color name="mode_revision">#B05BF0</color>
+    <color name="mode_mock_test">#F05B5B</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+</resources>

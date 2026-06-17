@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  shortcuts.xml — the bridge between Google Assistant / Gemini voice
+  queries and the StudyFlow app.
+
+  How App Actions work (2024-2025, post-actions.xml-deprecation):
+    1. User says "Hey Google, start studying Math chapter 3 theory"
+    2. Assistant parses the query, matches it against the <capability>'s
+       queryPatterns (defined in strings.xml as string-arrays)
+    3. Assistant extracts parameters ($subject$, $chapter$, $mode$) using
+       schema.org types
+    4. Assistant fires the <intent> declared inside the capability,
+       launching SessionActivity with extras (subject, chapter, mode, ...)
+    5. SessionActivity.onNewIntent() / onCreate() reads the extras and
+       tells the ViewModel to start/stop/break the study session.
+
+  Testing locally:
+    - Use Android Studio's Google Assistant plugin (Tools > Google Assistant >
+      App Actions Test Tool)
+    - Or `adb shell am start -n com.studyflow/.ui.SessionActivity \
+         --es subject "Math" --es chapter "Trigonometry" --es mode "theory"`
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ============ CAPABILITY 1: START STUDY ============ -->
+    <capability
+        android:name="com.studyflow.START_STUDY"
+        android:queryPatterns="@array/start_study_queries">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.studyflow.ui.SessionActivity"
+            android:targetPackage="com.studyflow">
+            <parameter
+                android:name="subject"
+                android:key="subject" />
+            <parameter
+                android:name="chapter"
+                android:key="chapter"
+                android:required="false" />
+            <parameter
+                android:name="mode"
+                android:key="mode"
+                android:required="false" />
+        </intent>
+    </capability>
+
+    <!-- ============ CAPABILITY 2: STOP STUDY ============ -->
+    <capability
+        android:name="com.studyflow.STOP_STUDY"
+        android:queryPatterns="@array/stop_study_queries">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.studyflow.ui.SessionActivity"
+            android:targetPackage="com.studyflow">
+            <parameter
+                android:name="action"
+                android:key="action"
+                android:value="STOP" />
+        </intent>
+    </capability>
+
+    <!-- ============ CAPABILITY 3: TAKE BREAK ============ -->
+    <capability
+        android:name="com.studyflow.TAKE_BREAK"
+        android:queryPatterns="@array/take_break_queries">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.studyflow.ui.SessionActivity"
+            android:targetPackage="com.studyflow">
+            <parameter
+                android:name="duration"
+                android:key="breakDuration" />
+        </intent>
+    </capability>
+
+    <!-- ============ STATIC SHORTCUTS (long-press launcher) ============ -->
+    <!-- These appear when the user long-presses the app icon, and can also
+         be spoken as "Hey Google, use StudyFlow to <shortcut id>" -->
+    <shortcut
+        android:shortcutId="start_quick_session"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_start_short"
+        android:shortcutLongLabel="@string/shortcut_start_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.studyflow.ui.SessionActivity"
+            android:targetPackage="com.studyflow">
+            <extra android:name="subject" android:value="General" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="stop_session"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_stop_short"
+        android:shortcutLongLabel="@string/shortcut_stop_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.studyflow.ui.SessionActivity"
+            android:targetPackage="com.studyflow">
+            <extra android:name="action" android:value="STOP" />
+        </intent>
+    </shortcut>
+
+</shortcuts>

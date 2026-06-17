@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== App identity ===== -->
+    <string name="app_name">StudyFlow</string>
+    <string name="app_tagline">Study smarter. Track everything.</string>
+
+    <!-- ===== App Actions: query patterns =====
+         Each $name$ placeholder binds to a <parameter> in shortcuts.xml.
+         Order matters — Assistant tries patterns top-to-bottom. -->
+    <string-array name="start_study_queries">
+        <item>"start studying $subject$"</item>
+        <item>"start studying $subject$ $chapter$"</item>
+        <item>"I am going to study $subject$"</item>
+        <item>"I am going to study $subject$ $chapter$ $mode$"</item>
+        <item>"begin study session for $subject$"</item>
+        <item>"studying $subject$ $chapter$ now"</item>
+        <item>"open study session $subject$"</item>
+        <item>"I want to study $subject$"</item>
+        <item>"let me study $subject$"</item>
+        <item>"start a $mode$ session for $subject$"</item>
+    </string-array>
+
+    <string-array name="stop_study_queries">
+        <item>"I am done studying"</item>
+        <item>"stop study session"</item>
+        <item>"finished studying"</item>
+        <item>"end study session"</item>
+        <item>"I have completed my study"</item>
+        <item>"study done"</item>
+        <item>"stop the timer"</item>
+        <item>"I am done with study"</item>
+        <item>"end my session"</item>
+    </string-array>
+
+    <string-array name="take_break_queries">
+        <item>"take a break for $duration$"</item>
+        <item>"I am taking a break"</item>
+        <item>"pause study session"</item>
+        <item>"break time"</item>
+        <item>"pause for $duration$"</item>
+    </string-array>
+
+    <!-- ===== Static shortcut labels ===== -->
+    <string name="shortcut_start_short">Start session</string>
+    <string name="shortcut_start_long">Start a quick study session</string>
+    <string name="shortcut_stop_short">Stop session</string>
+    <string name="shortcut_stop_long">Stop the current study session</string>
+
+    <!-- ===== Notification channel ===== -->
+    <string name="notif_channel_session">Active study session</string>
+    <string name="notif_channel_reminders">Reminders</string>
+
+    <!-- ===== Notification content ===== -->
+    <string name="notif_session_title_studying">Studying: %1$s</string>
+    <string name="notif_session_title_break">Break — %1$s</string>
+    <string name="notif_session_text">Tap to open session</string>
+    <string name="notif_action_stop">Stop session</string>
+    <string name="notif_action_break">Take break</string>
+    <string name="notif_action_resume">Resume</string>
+
+    <!-- ===== UI labels ===== -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_analytics">Analytics</string>
+    <string name="nav_subjects">Subjects</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="action_start_session">Start session</string>
+    <string name="action_stop_session">Stop session</string>
+    <string name="action_take_break">Take a break</string>
+    <string name="action_resume">Resume studying</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+
+    <!-- ===== Onboarding ===== -->
+    <string name="onboard_welcome_title">Welcome to StudyFlow</string>
+    <string name="onboard_welcome_body">A voice-first study tracker. Say \"Hey Google, start studying Math\" and your session begins — no need to touch the phone.</string>
+    <string name="onboard_subjects_title">Pick your subjects</string>
+    <string name="onboard_goal_title">Set your daily goal</string>
+    <string name="onboard_voice_title">Enable voice control</string>
+    <string name="onboard_done">Get started</string>
+
+    <!-- ===== Toasts / snackbars ===== -->
+    <string name="toast_no_active_session">No active session found</string>
+    <string name="toast_session_started">Session started: %1$s</string>
+    <string name="toast_session_stopped">Session logged</string>
+    <string name="toast_auto_stopped">Previous session auto-stopped</string>
+    <string name="toast_session_too_short">Session too short — not counted in streaks</string>
+
+    <!-- ===== Subject presets ===== -->
+    <string-array name="preset_subjects">
+        <item>Math</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>History</item>
+        <item>Geography</item>
+        <item>Polity</item>
+        <item>Economics</item>
+        <item>English</item>
+        <item>Current Affairs</item>
+    </string-array>
+</resources>
