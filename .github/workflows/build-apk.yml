@@ -20,47 +20,28 @@ jobs:
       - name: Check out the project
         uses: actions/checkout@v4
 
+      # Setup Java AND let it handle caching your Gradle files natively
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
+          cache: 'gradle'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: |
-            tools
-            platform-tools
-            platforms;android-35
-            build-tools;35.0.0
-
-      - name: Cache Gradle dependencies and wrapper
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            .gradle
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/gradle.properties') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
-
-      - name: Install Gradle 8.7 (runner doesn't ship it by default)
+      # Rely on pre-installed runner SDKs. This ensures licenses are auto-accepted.
+      - name: Ensure Android SDK Environment
         run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip -O /tmp/gradle.zip
-          unzip -q /tmp/gradle.zip -d $HOME
-          echo "$HOME/gradle-8.7/bin" >> $GITHUB_PATH
+          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
 
-      - name: Generate gradle-wrapper.jar
-        run: gradle wrapper --gradle-version 8.7 --distribution-type bin
-
+      # Grant execution right directly to your repository's existing wrapper
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      # Assemble the debug build
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
 
+      # Upload the final output
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -69,6 +50,7 @@ jobs:
           if-no-files-found: error
           retention-days: 90
 
+      # Upload build reports if something inside gradle compilation complains
       - name: Also upload build reports (helpful if build fails)
         if: always()
         uses: actions/upload-artifact@v4
