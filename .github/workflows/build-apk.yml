@@ -1,13 +1,5 @@
 # Build StudyFlow debug APK on every push and PR.
 # The APK is uploaded as a downloadable artifact.
-#
-# After the workflow runs (takes ~10-15 min the first time, ~3-5 min on
-# subsequent runs thanks to the Gradle cache), open:
-#   GitHub repo → Actions tab → click the latest run → scroll to "Artifacts"
-#   → download "studyflow-debug-apk" → unzip → app-debug.apk
-#
-# Install on your tablet by tapping the APK (enable "Install unknown apps"
-# for your file manager if prompted).
 
 name: Build APK
 
@@ -16,7 +8,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch:  # lets you trigger it manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build:
@@ -54,8 +46,13 @@ jobs:
           restore-keys: |
             gradle-${{ runner.os }}-
 
+      - name: Install Gradle 8.7 (runner doesn't ship it by default)
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip -O /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d $HOME
+          echo "$HOME/gradle-8.7/bin" >> $GITHUB_PATH
+
       - name: Generate gradle-wrapper.jar
-        working-directory: ${{ github.workspace }}
         run: gradle wrapper --gradle-version 8.7 --distribution-type bin
 
       - name: Grant execute permission for gradlew
